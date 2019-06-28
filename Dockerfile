@@ -30,7 +30,9 @@ RUN apt-get update && apt-get install -y \
   
 # Install PHP Extensions
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/lib \
-  && docker-php-ext-install bcmath ctype curl dom exif fileinfo gd iconv intl json mbstring mcrypt opcache pdo_mysql  soap xsl zip
+  && docker-php-ext-install bcmath ctype curl dom exif fileinfo gd iconv intl json \
+  && docker-php-ext-install mbstring mcrypt opcache pdo_mysql posix simplexml
+  && docker-php-ext-install soap sockets tokenizer xml xmlwriter xsl zip
 
 # xdebug comes from pecl
 RUN pecl install xdebug-2.6.0
