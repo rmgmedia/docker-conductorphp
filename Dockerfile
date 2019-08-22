@@ -3,14 +3,19 @@ FROM php:${php_version}-fpm
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=webuser --with-fpm-group=nginx --disable-cgi
 
-LABEL maintainer="Mathew Beane <mathew.beane@rmgmedia.com>"
+LABEL maintainer="Matthew Feinberg <matthew.feinberg@rmgmedia.com>"
 
 # Install Base Packages
 RUN apt-get update && apt-get install -y \
   apt-transport-https \
   apt-utils \
+  bash-completion \
+  cron \
+  exuberant-ctags \
   git \
   gnupg \
+  hasktags \
+  htop \
   libcurl3-dev \
   libfreetype6-dev \
   libjpeg-dev \
@@ -23,6 +28,7 @@ RUN apt-get update && apt-get install -y \
   nano \
   openssh-client \
   telnet \
+  tig \
   unzip \
   vim \
   zip \
