@@ -1,4 +1,4 @@
-ARG php_version=7.2
+ARG php_version=7.2.21
 FROM php:${php_version}-fpm
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=webuser --with-fpm-group=nginx --disable-cgi
@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
   mariadb-client \
   mydumper \
   nano \
+  npm \
   openssh-client \
   telnet \
   tig \
@@ -57,6 +58,7 @@ RUN curl -sS https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get install -y nodejs
 
 # Gulp setup
+RUN npm install npm@latest -g
 RUN npm install --global gulp-cli
 
 # Yarn Setup
