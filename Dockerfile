@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
   libpng-dev \
   libxml2-dev \
   libxslt-dev \
-  mysql-client \
+  mariadb-client \
   mydumper \
   nano \
   openssh-client \
