@@ -1,14 +1,19 @@
 ARG php_version=7.2
-FROM php:${php_version}-fpm
+FROM php:${php_version}-fpm-stretch
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=webuser --with-fpm-group=nginx --disable-cgi
 
 LABEL maintainer="Mathew Beane <mathew.beane@rmgmedia.com>"
 
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
+RUN apt-get update && apt-get -t stretch-backports install -y npm 
 # Install Base Packages
 RUN apt-get update && apt-get install -y \
   apt-transport-https \
   apt-utils \
+  bash-completion \
+  cron \
+  exuberant-ctags \
   git \
   gnupg \
   libcurl3-dev \
@@ -23,6 +28,7 @@ RUN apt-get update && apt-get install -y \
   nano \
   openssh-client \
   telnet \
+  tig \
   unzip \
   vim \
   zip \
@@ -51,6 +57,7 @@ RUN curl -sS https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get install -y nodejs
 
 # Gulp setup
+RUN npm install npm@latest -g
 RUN npm install --global gulp-cli
 
 # Yarn Setup
