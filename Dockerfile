@@ -1,16 +1,21 @@
-ARG php_version=7.1
+ARG php_version=7.1.32
 FROM php:${php_version}-fpm
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=webuser --with-fpm-group=nginx --disable-cgi
 
-LABEL maintainer="Mathew Beane <mathew.beane@rmgmedia.com>"
+LABEL maintainer="Matthew Feinberg <matthew.feinberg@rmgmedia.com>"
 
 # Install Base Packages
 RUN apt-get update && apt-get install -y \
   apt-transport-https \
   apt-utils \
+  bash-completion \
+  cron \
+  exuberant-ctags \
   git \
   gnupg \
+  hasktags \
+  htop \
   libcurl3-dev \
   libfreetype6-dev \
   libjpeg-dev \
@@ -18,11 +23,13 @@ RUN apt-get update && apt-get install -y \
   libpng-dev \
   libxml2-dev \
   libxslt-dev \
-  mysql-client \
+  mariadb-client \
   mydumper \
   nano \
+  npm \
   openssh-client \
   telnet \
+  tig \
   unzip \
   vim \
   zip \
@@ -47,10 +54,11 @@ RUN docker-php-ext-install zlib
 COPY config/php.ini /usr/local/etc/php/php.ini
   
 # Node Setup
-RUN curl -sS https://deb.nodesource.com/setup_6.x | bash
+RUN curl -sS https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get install -y nodejs
 
 # Gulp setup
+RUN npm install npm@latest -g
 RUN npm install --global gulp-cli
 
 # Yarn Setup
